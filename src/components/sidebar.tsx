@@ -32,6 +32,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Button } from "./ui/button";
 import { NAVSECTIONS } from "@/config/sidebar.config";
 import { getInitials } from "@/utils/getInitials";
+import { useTheme } from "next-themes";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -40,7 +41,8 @@ export function Sidebar() {
   const user = useAuthStore((s) => s.user);
   const { logout } = useAuth();
 
-
+  const { resolvedTheme } = useTheme();
+  
   return (
     <aside
       className={cn(
@@ -50,8 +52,12 @@ export function Sidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-4 py-5">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl dark:bg-foreground text-background">
-          <Image src="/logo.png" alt="Logo" width={38} height={38} />
+        <div className="flex size-9 shrink-0 items-center justify-center">
+          {resolvedTheme === "dark" ? (
+            <Image src="/logo-white1.png" alt="Logo" width={38} height={38} />
+          ) : (
+            <Image src="/logo.png" alt="Logo" width={38} height={38} />
+          )}
         </div>
         {!isCollapsed && (
           <div className="min-w-0">

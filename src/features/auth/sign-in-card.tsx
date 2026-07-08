@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
+import Image from "next/image";
 
 export function SignInCard() {
     const [login, setLogin] = useState("");
@@ -18,9 +19,9 @@ export function SignInCard() {
     }
 
     return (
-        <Card className="grid w-full max-w-6xl overflow-hidden border-white/10 bg-white/5 shadow-2xl backdrop-blur-2xl md:grid-cols-2">
+        <Card className="grid w-full max-w-md overflow-hidden border-white/10 bg-white/5 shadow-2xl backdrop-blur-2xl">
             {/* Left */}
-            <div className="hidden flex-col justify-between bg-linear-to-br from-violet-700/30 via-transparent to-cyan-500/20 p-12 md:flex">
+            {/* <div  style={{ backgroundImage: "url('/images/WZ010-10-black-01.jpg')",  }} className="hidden flex-col justify-between bg-linear-to-br from-violet-700/30 via-transparent to-cyan-500/20 p-12 md:flex">
                 <div>
                     <h1 className="text-5xl font-bold tracking-tight text-white">
                         Welcome Back
@@ -44,6 +45,16 @@ export function SignInCard() {
                         <div className="h-2 w-2 rounded-full bg-white/50" />
                     </div>
                 </div>
+            </div> */}
+
+            <div className="sm:hidden flex-col items-center justify-center p-3 flex">
+                <Image
+                    src="/logo-white1.png"
+                    alt="Sign In Image"
+                    width={150}
+                    height={150}
+                    className="rounded-lg object-cover"
+                />
             </div>
 
             {/* Right */}
