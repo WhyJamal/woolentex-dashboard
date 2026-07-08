@@ -10,7 +10,7 @@ export async function loginAction(login: string, password: string) {
       { login, password }
     );
 
-    console.log("Ответ:", data);
+    // console.log("Ответ:", data);
     if (!data.success || !data.user) {
       return { error: "Неверный логин или пароль." };
     }
@@ -29,4 +29,9 @@ export async function loginAction(login: string, password: string) {
     console.error(error);
     return { error: "Ошибка при подключении к 1С" };
   }
+}
+
+export async function logoutAction() {
+  const cookieStore = await cookies();
+  cookieStore.delete("session_user");
 }

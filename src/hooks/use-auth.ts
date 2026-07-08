@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginAction } from "@/actions/auth";
-import { useAuthStore } from "@/lib/auth-store";
+import { loginAction, logoutAction } from "@/actions/auth";
+import { useAuthStore } from "@/store/auth-store";
+import { PAGES } from "@/config/pages.config";
 
 export function useAuth() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +12,7 @@ export function useAuth() {
   const router = useRouter();
 
   const setUser = useAuthStore((s) => s.setUser);
-  const logout = useAuthStore((s) => s.logout);
+  const clearUser = useAuthStore((s) => s.logout);
   const user = useAuthStore((s) => s.user);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
@@ -28,7 +29,7 @@ export function useAuth() {
       }
 
       setUser(result.user);
-      router.push("/dashboard");
+      router.push(PAGES.KPI);
       return true;
     } catch {
       setError("Не удалось подключиться к серверу.");
@@ -36,6 +37,12 @@ export function useAuth() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  async function logout() {
+    await logoutAction();
+    clearUser();
+    router.push(PAGES.SIGN_IN);
   }
 
   return { login, logout, user, isAuthenticated, isLoading, error };
