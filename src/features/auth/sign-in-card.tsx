@@ -62,22 +62,21 @@ export function SignInCard() {
                 <div className="w-full max-w-sm">
                     <div className="mb-10">
                         <h2 className="text-3xl font-bold text-white">
-                            Sign In
+                            Вход
                         </h2>
 
                         <p className="mt-2 text-sm text-white/60">
-                            Enter your credentials to continue.
+                            Введите свои учетные данные для продолжения.
                         </p>
                     </div>
 
                     <form className="space-y-5" onSubmit={handleSubmit}>
                         <div className="space-y-2">
                             <Label className="text-white">
-                                Username
+                                Имя пользователя
                             </Label>
 
                             <Input
-                                placeholder="john.doe"
                                 value={login}
                                 onChange={(e) => setLogin(e.target.value)}
                                 className="border-white/10 bg-white/5 text-white placeholder:text-white/40"
@@ -86,12 +85,11 @@ export function SignInCard() {
 
                         <div className="space-y-2">
                             <Label className="text-white">
-                                Password
+                                Пароль
                             </Label>
 
                             <Input
                                 type="password"
-                                placeholder="••••••••"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="border-white/10 bg-white/5 text-white placeholder:text-white/40"
@@ -107,7 +105,7 @@ export function SignInCard() {
                             disabled={isLoading}
                             className="h-11 w-full rounded bg-violet-600 text-white"
                         >
-                            Sign In
+                            Вход
                         </button>
 
                         {/* <Button

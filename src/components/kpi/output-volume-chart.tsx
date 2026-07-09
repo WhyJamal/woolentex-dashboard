@@ -7,25 +7,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Bar, BarChart, XAxis } from "recharts";
+import { formatNumber } from "@/utils/formatter-number";
+import { Bar, BarChart, LabelList, XAxis } from "recharts";
 
 interface OutputVolumeChartProps {
   data: { date: string; value: number }[];
-  totalDesktop: string;
-  totalMobile: string;
+  total: number;
 }
 
 const chartConfig = {
   value: {
-    label: "Hajm",
+    label: "Количество",
     color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 
 export function OutputVolumeChart({
   data,
-  totalDesktop,
-  totalMobile,
+  total,
 }: OutputVolumeChartProps) {
   return (
     <Card className="border-neutral-800">
@@ -38,12 +37,8 @@ export function OutputVolumeChart({
         </div>
         <div className="flex gap-6 text-right">
           <div>
-            <p className="text-xs text-neutral-400">Desktop</p>
-            <p className="text-lg font-semibold">{totalDesktop}</p>
-          </div>
-          <div>
-            <p className="text-xs text-neutral-400">Mobile</p>
-            <p className="text-lg font-semibold">{totalMobile}</p>
+            <p className="text-xs text-neutral-400">Итого</p>
+            <p className="text-lg font-semibold">{formatNumber(total)}</p>
           </div>
         </div>
       </CardHeader>
@@ -54,11 +49,18 @@ export function OutputVolumeChart({
               dataKey="date"
               axisLine={false}
               tickLine={false}
-              interval={2}
-              tick={{ fill: "#737373", fontSize: 10 }}
+              interval={0}
+              tick={{ fill: "#737373", fontSize: 8 }}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar dataKey="value" fill="var(--color-value)" radius={[3, 3, 0, 0]} />
+            <Bar dataKey="value" fill="var(--color-value)" radius={[3, 3, 0, 0]}>
+               <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+              />
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

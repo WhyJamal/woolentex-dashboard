@@ -16,8 +16,8 @@ export interface StockPoint {
 
 export interface RevenueGoal {
   label: string;
-  current: string;
-  target: string;
+  current: number;
+  // target: string;
   percent: number;
   color: string;
 }
@@ -29,20 +29,19 @@ export interface OutputPoint {
 
 export interface KpiOverviewResponse {
   bank: {
-    sum: string;
-    euro: string;
-    dollar: string;
+    sum: number;
+    euro: number;
+    dollar: number;
   };
   cash: {
-    sum: string;
-    euro: string;
-    dollar: string;
+    sum: number;
+    euro: number;
+    dollar: number;
   };
   stock: StockPoint[];
   revenueGoals: RevenueGoal[];
   output: {
     data: OutputPoint[];
-    totalDesktop: string;
-    totalMobile: string;
+    total: number;
   };
 }

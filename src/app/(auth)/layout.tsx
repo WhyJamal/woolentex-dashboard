@@ -18,17 +18,17 @@ export default function AuthLayout({
           src={
             isMobile
               ? "/images/WZ010-10-black-01.jpg"
-              : "/images/maxresdefault.png"
+              : "/images/WZ10-10-scaled.png"
           }
           alt="Background"
           className="h-full w-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 bg-black/5" />
 
-        <div className="absolute -left-60 -top-60 h-125 w-125 rounded-full bg-violet-600/30 blur-[150px]" />
+        <div className="absolute -left-60 -top-60 h-125 w-125 rounded-full bg-black-600/30 blur-[150px]" />
 
-        <div className="absolute -right-50 -bottom-50 h-125 w-125 rounded-full bg-cyan-500/20 blur-[180px]" />
+        <div className="absolute -right-50 -bottom-50 h-125 w-125 rounded-full bg-black-500/20 blur-[180px]" />
       </div>
 
       {/* Content */}

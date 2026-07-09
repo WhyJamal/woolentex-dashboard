@@ -1,17 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-interface GoalItem {
-  label: string;
-  current: string;
-  target: string;
-  percent: number;
-  color: string;
-}
+import { RevenueGoal } from "@/types/kpi.types";
+import { formatNumber } from "@/utils/formatter-number";
 
 interface RevenueGoalsProps {
-  goals: GoalItem[];
+  goals: RevenueGoal[];
 }
+
+const colorMap = {
+  red: "bg-red-500",
+  orange: "bg-orange-500",
+  green: "bg-green-500",
+  blue: "bg-blue-500",
+};
 
 export function RevenueGoals({ goals }: RevenueGoalsProps) {
   return (
@@ -28,13 +29,16 @@ export function RevenueGoals({ goals }: RevenueGoalsProps) {
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
               <div
-                className={cn("h-full rounded-full", goal.color)}
+                className={cn(
+                  "h-full rounded-full",
+                  colorMap[goal.color as keyof typeof colorMap]
+                )}
                 style={{ width: `${goal.percent}%` }}
               />
             </div>
             <div className="mt-1.5 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{goal.current}</span>
-              <span>Target: {goal.target}</span>
+              <span>{formatNumber(goal.current)}</span>
+              {/* <span>Target: {goal.target}</span> */}
             </div>
           </div>
         ))}

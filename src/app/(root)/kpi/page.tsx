@@ -3,6 +3,7 @@ import { StockChart } from "@/components/kpi/stock-chart";
 import { RevenueGoals } from "@/components/kpi/revenue-goals";
 import { OutputVolumeChart } from "@/components/kpi/output-volume-chart";
 import { getKpiOverview } from "@/actions/kpi.action";
+import { formatNumber } from "@/utils/formatter-number";
 
 export default async function KpiPage() {
     const result = await getKpiOverview();
@@ -28,13 +29,13 @@ export default async function KpiPage() {
                         cards: [
                             {
                                 rows: [
-                                    { label: "Сум", value: bank.sum, icon: heroIcons.Wallet },
+                                    { label: "Сум", value: formatNumber(bank.sum), icon: heroIcons.Wallet },
                                 ],
                             },
                             {
                                 rows: [
-                                    { label: "Евро", value: bank.euro, icon: heroIcons.Euro },
-                                    { label: "Доллар", value: bank.dollar, icon: heroIcons.DollarSign },
+                                    { label: "Евро", value: formatNumber(bank.euro), icon: heroIcons.Euro },
+                                    { label: "Доллар", value: formatNumber(bank.dollar), icon: heroIcons.DollarSign },
                                 ],
                             },
                         ],
@@ -44,13 +45,13 @@ export default async function KpiPage() {
                         cards: [
                             {
                                 rows: [
-                                    { label: "Сум", value: cash.sum, icon: heroIcons.Wallet },
+                                    { label: "Сум", value: formatNumber(cash.sum), icon: heroIcons.Wallet },
                                 ],
                             },
                             {
                                 rows: [
-                                    { label: "Евро", value: cash.euro, icon: heroIcons.Euro },
-                                    { label: "Доллар", value: cash.dollar, icon: heroIcons.DollarSign },
+                                    { label: "Евро", value: formatNumber(cash.euro), icon: heroIcons.Euro },
+                                    { label: "Доллар", value: formatNumber(cash.dollar), icon: heroIcons.DollarSign },
                                 ],
                             },
                         ],
@@ -65,8 +66,7 @@ export default async function KpiPage() {
 
             <OutputVolumeChart
                 data={output.data}
-                totalDesktop={output.totalDesktop}
-                totalMobile={output.totalMobile}
+                total={output.total}
             />
         </div>
     );

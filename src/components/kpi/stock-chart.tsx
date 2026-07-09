@@ -15,7 +15,7 @@ interface StockChartProps {
 
 const chartConfig = {
   value: {
-    label: "Qoldiq",
+    label: "Остатка",
     color: "var(--chart-1)",
   },
 } satisfies ChartConfig;
@@ -48,7 +48,12 @@ export function StockChart({ data }: StockChartProps) {
               type="monotone"
               stroke="var(--color-value)"
               strokeWidth={2.5}
-              dot={false}
+              dot={{
+                fill: "var(--color-desktop)",
+              }}
+              activeDot={{
+                r: 6,
+              }}
             />
           </LineChart>
         </ChartContainer>

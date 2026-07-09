@@ -17,6 +17,7 @@ export async function getKpiOverview(): Promise<KpiActionResult> {
 
   try {
     const data = await api.get<KpiOverviewResponse>("/kpi");
+    console.log("KPI Overview data:", data.output);
     return { success: true, data };
   } catch (err) {
     console.error("Ошибка при получении обзора KPI:", err);
