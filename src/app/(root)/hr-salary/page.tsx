@@ -4,30 +4,28 @@ import { HeadcountChart } from "@/components/hr-salary/headcount-chart";
 import { TurnoverChart } from "@/components/hr-salary/turnover-chart";
 import { HrStatCard } from "@/components/hr-salary/hr-stat-card";
 import { SalaryBarChart } from "@/components/hr-salary/salary-bar-chart";
-import { getSession } from "@/lib/auth/get-session";
+import { getHrSalaryOverview } from "@/actions/hr-salary.action";
 
-const headcountData = [
-  { label: "Производство", value: 620, color: "#60a5fa" },
-  { label: "Офис", value: 280, color: "#93c5fd" },
-  { label: "Склад", value: 225, color: "#1d4ed8" },
-];
-
-const turnoverData = [
-  { label: "Производство", value: 8, color: "#60a5fa" },
-  { label: "Офис", value: 3, color: "#93c5fd" },
-  { label: "Склад", value: 4, color: "#1d4ed8" },
-  { label: "Продажи", value: 2, color: "#2563eb" },
-  { label: "Другое", value: 1, color: "#bfdbfe" },
-];
-
-const months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн"];
-const salaryData = months.map((label, i) => ({
-  label,
-  value: 3200000 + i * 90000,
-}));
+const lucideIcons = { Wallet, Users2, Banknote };
 
 export default async function HrSalaryPage() {
-  const session = await getSession();
+  const result = await getHrSalaryOverview();
+
+  if (!result.success) {
+    return (
+      <div className="p-6 text-center text-red-500">
+        {result.error}
+      </div>
+    );
+  }
+
+  const { stats, headcount, turnover, cards, salary } = result.data;
+
+  const withHeroIcon = (rows: { label: string; value: string; icon: string }[]) =>
+    rows.map((row) => ({
+      ...row,
+      icon: heroIcons[row.icon as keyof typeof heroIcons],
+    }));
 
   return (
     <div className="space-y-6">
@@ -37,58 +35,38 @@ export default async function HrSalaryPage() {
         groups={[
           {
             title: "Персонал",
-            cards: [
-              {
-                rows: [
-                  { label: "Сотрудников", value: "1 125", icon: heroIcons.Wallet },
-                ],
-              },
-              {
-                rows: [
-                  { label: "Текучесть", value: "5.2%", icon: heroIcons.Euro },
-                ],
-              },
-            ],
+            cards: stats.map((row) => ({ rows: withHeroIcon([row]) })),
           },
         ]}
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
         <HeadcountChart
-          total={1125}
-          totalLabel="Сотрудников"
-          period="Январь – Июнь 2024"
-          trendPercent={5.2}
-          data={headcountData}
+          total={headcount.total}
+          totalLabel={headcount.totalLabel}
+          period={headcount.period}
+          trendPercent={headcount.trendPercent}
+          data={headcount.data}
         />
-        <TurnoverChart period="Январь – Июнь 2024" data={turnoverData} />
+        <TurnoverChart period={turnover.period} data={turnover.data} />
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row">
-        <HrStatCard
-          label="ФОТ"
-          value="12 000 000 000"
-          icon={Banknote}
-          trend="+4.1% к прошлому месяцу"
-        />
-        <HrStatCard
-          label="Средняя зарплата"
-          value="3 480 000"
-          icon={Wallet}
-          trend="+2.3% к прошлому месяцу"
-        />
-        <HrStatCard
-          label="Количество сотрудников"
-          value="1 125"
-          icon={Users2}
-          trend="+1.8% к прошлому месяцу"
-        />
+        {cards.map((card) => (
+          <HrStatCard
+            key={card.label}
+            label={card.label}
+            value={card.value}
+            icon={lucideIcons[card.icon as keyof typeof lucideIcons]}
+            trend={card.trend}
+          />
+        ))}
       </div>
 
       <SalaryBarChart
-        period="Январь – Июнь 2024"
-        trendPercent={5.2}
-        data={salaryData}
+        period={salary.period}
+        trendPercent={salary.trendPercent}
+        data={salary.data}
       />
     </div>
   );

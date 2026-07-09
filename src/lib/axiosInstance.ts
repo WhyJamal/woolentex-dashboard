@@ -16,7 +16,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (res) => res,
   (err: AxiosError) => {
-    console.error("1C so'rov xatosi:", err?.response?.status, err?.message);
+    console.error("Ошибка запроса к 1С:", err?.response?.status, err?.message);
     return Promise.reject(err);
   }
 );

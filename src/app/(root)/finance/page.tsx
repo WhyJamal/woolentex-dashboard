@@ -1,47 +1,35 @@
 import { CashFlowChart } from "@/components/finance/cash-flow-chart";
 import { CashBalanceSection } from "@/components/finance/cash-balance-section";
+import { getFinanceOverview } from "@/actions/finance.action";
 
-const months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн"];
-const genData = (base: number) =>
-  months.map((label, i) => ({
-    label,
-    value: base + Math.round(Math.sin(i) * base * 0.3),
-  }));
+export default async function FinancePage() {
+  const result = await getFinanceOverview();
 
-export default function FinancePage() {
+  if (!result.success) {
+    return (
+      <div className="p-6 text-center text-red-500">
+        {result.error}
+      </div>
+    );
+  }
+
+  const { cashFlows, balance } = result.data;
+
   return (
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <CashFlowChart
-          title="Банк — Приход"
-          period="Январь – Июнь 2024"
-          trendPercent={5.2}
-          data={genData(4200)}
-        />
-        <CashFlowChart
-          title="Банк — Расход"
-          period="Январь – Июнь 2024"
-          trendPercent={3.8}
-          data={genData(3100)}
-        />
-        <CashFlowChart
-          title="Касса — Приход"
-          period="Январь – Июнь 2024"
-          trendPercent={6.1}
-          data={genData(1800)}
-        />
-        <CashFlowChart
-          title="Касса — Расход"
-          period="Январь – Июнь 2024"
-          trendPercent={2.4}
-          data={genData(1200)}
-        />
+        {cashFlows.map((flow) => (
+          <CashFlowChart
+            key={flow.title}
+            title={flow.title}
+            period={flow.period}
+            trendPercent={flow.trendPercent}
+            data={flow.data}
+          />
+        ))}
       </div>
 
-      <CashBalanceSection
-        bank={{ sum: "482 000 000", euro: "€ 4 200", dollar: "$ 48 200" }}
-        kassa={{ sum: "12 847 000", euro: "€ 320", dollar: "$ 3 420" }}
-      />
+      <CashBalanceSection bank={balance.bank} kassa={balance.kassa} />
     </div>
   );
 }
