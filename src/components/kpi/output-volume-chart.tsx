@@ -54,11 +54,13 @@ export function OutputVolumeChart({
             />
             <ChartTooltip content={<ChartTooltipContent />} />
             <Bar dataKey="value" fill="var(--color-value)" radius={[3, 3, 0, 0]}>
-               <LabelList
+              <LabelList
+                dataKey="value"
                 position="top"
                 offset={12}
                 className="fill-foreground"
                 fontSize={12}
+                formatter={(value) => formatNumber(Number(value ?? 0))}
               />
             </Bar>
           </BarChart>

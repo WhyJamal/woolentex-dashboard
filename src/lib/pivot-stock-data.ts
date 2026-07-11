@@ -3,8 +3,8 @@ import type { StockPoint } from "@/types/kpi.types";
 const WAREHOUSE_COLORS = [
   "var(--chart-1)",
   "var(--chart-2)",
-  "var(--chart-3)",
   "#ef4444",
+  "var(--chart-3)",
   "var(--chart-5)",
 ];
 

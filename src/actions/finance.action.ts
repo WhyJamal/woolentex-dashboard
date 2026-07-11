@@ -3,6 +3,7 @@
 import { api } from "@/lib/axiosInstance";
 import { getSession } from "@/lib/auth/get-session";
 import type { BalancePeriod, CashBalanceResponse, FinanceOverviewResponse } from "@/types/finance.types";
+import { formatDateTime } from "@/utils/format-date";
 
 type FinanceActionResult =
   | { success: true; data: FinanceOverviewResponse }
@@ -37,10 +38,10 @@ export async function getCashBalance(
   if (!session) {
     return { success: false, error: "Сессия не найдена." };
   }
-
+  
   try {
     const data = await api.get<CashBalanceResponse>("/finance/balance", {
-      params: { date: date.toISOString().slice(0, 19) },
+      params: { date: formatDateTime(date) },
     });
     return { success: true, data };
   } catch (err) {
