@@ -1,4 +1,4 @@
-import { formatNumber } from "@/utils/formatter-number";
+import { formatNumber, formatSimpleNumber } from "@/utils/formatter-number";
 import { Wallet, Euro, DollarSign, Package, Layers, User, UserPlus, UserMinus } from "lucide-react";
 
 export interface HeroStatRow {
@@ -21,10 +21,11 @@ interface HeroGroup {
 interface HeroStatCardProps {
   title: string;
   subtitle?: string;
+  format?: "number" | "simpleNumber";
   groups: HeroGroup[];
 }
 
-export function HeroStatCard({ title, subtitle, groups }: HeroStatCardProps) {
+export function HeroStatCard({ title, subtitle, format, groups }: HeroStatCardProps) {
   return (
     <div className="rounded-2xl bg-linear-to-br from-violet-600 via-indigo-600 to-blue-500 p-6 text-white shadow-lg">
       <h1 className="text-xl font-semibold">{title}</h1>
@@ -60,7 +61,7 @@ export function HeroStatCard({ title, subtitle, groups }: HeroStatCardProps) {
                           {row.label}
                         </div>
                         <p className="mt-0.5 text-lg font-semibold">
-                          {formatNumber(Number(row.value) || 0)}
+                          {format === "simpleNumber" ? formatSimpleNumber(Number(row.value) || 0) : formatNumber(Number(row.value) || 0)}
                         </p>
                       </div>
                     );

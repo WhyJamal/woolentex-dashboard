@@ -3,3 +3,6 @@ export const formatNumber = (number: number) =>
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(number);
+  
+  export const formatSimpleNumber = (number: number) =>
+  new Intl.NumberFormat("ru-RU").format(number);

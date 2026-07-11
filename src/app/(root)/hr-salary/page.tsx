@@ -32,6 +32,7 @@ export default async function HrSalaryPage() {
       <HeroStatCard
         title="Кадры и зарплата"
         subtitle="Обзор персонала и фонда оплаты труда"
+        format="simpleNumber"
         groups={[
           {
             title: "За весь период",

@@ -44,7 +44,7 @@ export default async function WarehousePage() {
           centerValue={distribution.centerValue}
           data={distribution.items}
         />
-        <RevenueGoals goals={goals} title="Неликвиды" showPercent={false} />
+        <RevenueGoals goals={goals} title="Aging" showPercent={false} />
       </div>
     </div>
   );
