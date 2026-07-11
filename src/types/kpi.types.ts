@@ -12,6 +12,7 @@ export interface HeroStatGroupData {
 export interface StockPoint {
   month: string;
   value: number;
+  warehouse: string;
 }
 
 export interface RevenueGoal {

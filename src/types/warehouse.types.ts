@@ -1,6 +1,8 @@
+import { RevenueGoal } from "./kpi.types";
+
 export interface WarehouseStatRow {
   label: string;
-  value: string;
+  value: number;
   icon: string; 
 }
 
@@ -10,13 +12,12 @@ export interface WarehouseDistributionItem {
   color: string;
 }
 
-export interface WarehouseGoal {
-  label: string;
-  current: string;
-  target: string;
-  percent: number;
-  color: string;
-}
+// export interface WarehouseGoal {
+//   label: string;
+//   current: string;
+//   percent: number;
+//   color: string;
+// }
 
 export interface WarehouseOverviewResponse {
   stats: WarehouseStatRow[];
@@ -25,5 +26,5 @@ export interface WarehouseOverviewResponse {
     centerLabel: string;
     centerValue: string;
   };
-  goals: WarehouseGoal[];
+  goals: RevenueGoal[];
 }

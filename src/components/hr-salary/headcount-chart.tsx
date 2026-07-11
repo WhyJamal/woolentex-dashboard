@@ -14,7 +14,6 @@ interface HeadcountChartProps {
   total: number;
   totalLabel: string;
   period: string;
-  trendPercent: number;
   data: { label: string; value: number; color: string }[];
 }
 
@@ -22,7 +21,6 @@ export function HeadcountChart({
   total,
   totalLabel,
   period,
-  trendPercent,
   data,
 }: HeadcountChartProps) {
   const chartConfig = data.reduce((acc, item) => {
@@ -37,36 +35,49 @@ export function HeadcountChart({
         <p className="text-xs text-neutral-400">{period}</p>
       </div>
 
-      <div className="relative mx-auto">
-        <ChartContainer config={chartConfig} className="h-45 w-45">
-          <PieChart>
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <Pie
-              data={data}
-              dataKey="value"
-              nameKey="label"
-              innerRadius={62}
-              outerRadius={85}
-              paddingAngle={2}
-              strokeWidth={0}
-            >
-              {data.map((item) => (
-                <Cell key={item.label} fill={item.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ChartContainer>
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <p className="text-2xl font-bold">{total}</p>
-          <p className="text-xs text-neutral-400">{totalLabel}</p>
-        </div>
-      </div>
+      <div className="grid items-center gap-6 md:grid-cols-[220px_1fr]">
+        {/* Chart */}
+        <div className="relative mx-auto">
+          <ChartContainer config={chartConfig} className="h-45 w-45">
+            <PieChart>
+              <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+              <Pie
+                data={data}
+                dataKey="value"
+                nameKey="label"
+                innerRadius={62}
+                outerRadius={85}
+                paddingAngle={2}
+                strokeWidth={0}
+              >
+                {data.map((item) => (
+                  <Cell key={item.label} fill={item.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ChartContainer>
 
-      <div className="border-t border-neutral-800 pt-2">
-        <p className="flex items-center gap-1 text-xs font-medium">
-          Рост на {trendPercent}% в этом месяце
-          <TrendingUp className="size-3.5 text-green-400" />
-        </p>
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+            <p className="text-2xl font-bold">{total}</p>
+            <p className="text-xs text-neutral-400">{totalLabel}</p>
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
+          {data.map((item) => (
+            <div key={item.label} className="flex items-center gap-2">
+              <div
+                className="h-3 w-3 rounded-full"
+                style={{ backgroundColor: item.color }}
+              />
+              <div className="flex flex-1 items-center justify-between">
+                <span className="text-xs text-neutral-400">{item.label}</span>
+                <span className="text-xs font-medium">{item.value}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Card>
   );

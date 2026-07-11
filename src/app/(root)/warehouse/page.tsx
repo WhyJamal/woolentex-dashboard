@@ -16,7 +16,7 @@ export default async function WarehousePage() {
 
   const { stats, distribution, goals } = result.data;
 
-  const withIcon = (rows: { label: string; value: string; icon: string }[]) =>
+  const withIcon = (rows: { label: string; value: number; icon: string }[]) =>
     rows.map((row) => ({
       ...row,
       icon: heroIcons[row.icon as keyof typeof heroIcons],
@@ -43,7 +43,7 @@ export default async function WarehousePage() {
           centerValue={distribution.centerValue}
           data={distribution.items}
         />
-        <RevenueGoals goals={goals} />
+        <RevenueGoals goals={goals} title="Неликвиды" showPercent={false} />
       </div>
     </div>
   );

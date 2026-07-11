@@ -1,8 +1,9 @@
-import { Wallet, Euro, DollarSign } from "lucide-react";
+import { formatNumber } from "@/utils/formatter-number";
+import { Wallet, Euro, DollarSign, Package, Layers, User, UserPlus, UserMinus } from "lucide-react";
 
-interface HeroStatRow {
+export interface HeroStatRow {
   label: string;
-  value: string;
+  value: number;
   icon: React.ElementType;
 }
 
@@ -13,6 +14,8 @@ interface HeroCard {
 interface HeroGroup {
   title: string;
   cards: HeroCard[];
+  columbs?: number;
+  titlePosition?: "left" | "center" | "right";
 }
 
 interface HeroStatCardProps {
@@ -34,10 +37,10 @@ export function HeroStatCard({ title, subtitle, groups }: HeroStatCardProps) {
       <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:gap-10">
         {groups.map((group) => (
           <div key={group.title} className="flex-1">
-            <p className="mb-3 text-xs font-medium tracking-wide text-white/60 uppercase">
+            <p className={`mb-3 text-xs font-medium tracking-wide text-white/60 uppercase ${group.titlePosition === "center" ? "text-center" : group.titlePosition === "right" ? "text-right" : "text-left"}`}>
               {group.title}
             </p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className={`grid grid-cols-1 gap-3 sm:grid-cols-${group.columbs || 2}`}>
               {group.cards.map((card, i) => (
                 <div
                   key={i}
@@ -52,7 +55,7 @@ export function HeroStatCard({ title, subtitle, groups }: HeroStatCardProps) {
                           {row.label}
                         </div>
                         <p className="mt-0.5 text-lg font-semibold">
-                          {row.value}
+                          {formatNumber(Number(row.value) || 0)}
                         </p>
                       </div>
                     );
@@ -67,4 +70,4 @@ export function HeroStatCard({ title, subtitle, groups }: HeroStatCardProps) {
   );
 }
 
-export const heroIcons = { Wallet, Euro, DollarSign };
+export const heroIcons = { Wallet, Euro, DollarSign, Package, Layers, User, UserPlus, UserMinus };

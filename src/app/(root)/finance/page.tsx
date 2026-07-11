@@ -1,6 +1,6 @@
-import { CashFlowChart } from "@/components/finance/cash-flow-chart";
 import { CashBalanceSection } from "@/components/finance/cash-balance-section";
 import { getFinanceOverview } from "@/actions/finance.action";
+import { CashFlowChartWrapper } from "@/components/finance/cash-flow-chart-wrapper";
 
 export default async function FinancePage() {
   const result = await getFinanceOverview();
@@ -15,21 +15,12 @@ export default async function FinancePage() {
 
   const { cashFlows, balance } = result.data;
 
+
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        {cashFlows.map((flow) => (
-          <CashFlowChart
-            key={flow.title}
-            title={flow.title}
-            period={flow.period}
-            trendPercent={flow.trendPercent}
-            data={flow.data}
-          />
-        ))}
-      </div>
+      <CashFlowChartWrapper cashFlows={cashFlows} />
 
-      <CashBalanceSection bank={balance.bank} kassa={balance.kassa} />
+      <CashBalanceSection initialData={balance} />
     </div>
   );
 }

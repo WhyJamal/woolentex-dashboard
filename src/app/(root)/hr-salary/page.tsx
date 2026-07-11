@@ -21,11 +21,11 @@ export default async function HrSalaryPage() {
 
   const { stats, headcount, turnover, cards, salary } = result.data;
 
-  const withHeroIcon = (rows: { label: string; value: string; icon: string }[]) =>
-    rows.map((row) => ({
-      ...row,
-      icon: heroIcons[row.icon as keyof typeof heroIcons],
-    }));
+  // const withHeroIcon = (rows: { label: string; value: number; icon: string }[]) =>
+  //   rows.map((row) => ({
+  //     ...row,
+  //     icon: heroIcons[row.icon as keyof typeof heroIcons],
+  //   }));
 
   return (
     <div className="space-y-6">
@@ -34,8 +34,54 @@ export default async function HrSalaryPage() {
         subtitle="Обзор персонала и фонда оплаты труда"
         groups={[
           {
-            title: "Персонал",
-            cards: stats.map((row) => ({ rows: withHeroIcon([row]) })),
+            title: "За весь период",
+            titlePosition: "center",
+            cards: [
+              {
+                rows: [
+                  {
+                    label: "Сотрудники",
+                    value: stats.employees || 0,
+                    icon: heroIcons.User,
+                  },
+                ],
+              },
+              {
+                rows: [
+                  {
+                    label: "Принято",
+                    value: stats.hired || 0,
+                    icon: heroIcons.UserPlus,
+                  },
+                  {
+                    label: "Увольнения",
+                    value: stats.fired || 0,
+                    icon: heroIcons.UserMinus,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: "За текущий период",
+            titlePosition: "center",
+            columbs: 1,
+            cards: [
+              {
+                rows: [
+                  {
+                    label: "Принято",
+                    value: stats.hired_month || 0,
+                    icon: heroIcons.UserPlus,
+                  },
+                  {
+                    label: "Увольнения",
+                    value: stats.fired_month || 0,
+                    icon: heroIcons.UserMinus,
+                  },
+                ],
+              },
+            ],
           },
         ]}
       />
@@ -45,13 +91,14 @@ export default async function HrSalaryPage() {
           total={headcount.total}
           totalLabel={headcount.totalLabel}
           period={headcount.period}
-          trendPercent={headcount.trendPercent}
           data={headcount.data}
         />
-        <TurnoverChart period={turnover.period} data={turnover.data} />
-      </div>
+        {/* <TurnoverChart period={turnover.period} data={turnover.data} /> */}
+      {/* </div> */}
 
-      <div className="flex flex-col gap-3 sm:flex-row">
+
+
+      <div className="flex flex-col gap-3 sm:flex-col">
         {cards.map((card) => (
           <HrStatCard
             key={card.label}
@@ -62,12 +109,13 @@ export default async function HrSalaryPage() {
           />
         ))}
       </div>
+      </div>
 
-      <SalaryBarChart
+      {/* <SalaryBarChart
         period={salary.period}
         trendPercent={salary.trendPercent}
         data={salary.data}
-      />
+      /> */}
     </div>
   );
 }

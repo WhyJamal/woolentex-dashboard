@@ -5,6 +5,8 @@ import { formatNumber } from "@/utils/formatter-number";
 
 interface RevenueGoalsProps {
   goals: RevenueGoal[];
+  title?: string;
+  showPercent?: boolean;
 }
 
 const colorMap = {
@@ -14,28 +16,32 @@ const colorMap = {
   blue: "bg-blue-500",
 };
 
-export function RevenueGoals({ goals }: RevenueGoalsProps) {
+export function RevenueGoals({ goals, title, showPercent }: RevenueGoalsProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Выручка</CardTitle>
+        <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-5">
         {goals.map((goal) => (
           <div key={goal.label}>
             <div className="mb-1.5 flex items-center justify-between">
               <p className="text-sm font-medium">{goal.label}</p>
-              <p className="text-sm text-muted-foreground">{goal.percent}%</p>
+              {showPercent && (
+                <p className="text-sm text-muted-foreground">{goal.percent}%</p>
+              )}
             </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-              <div
-                className={cn(
-                  "h-full rounded-full",
-                  colorMap[goal.color as keyof typeof colorMap]
-                )}
-                style={{ width: `${goal.percent}%` }}
-              />
-            </div>
+            {showPercent && (
+              <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className={cn(
+                    "h-full rounded-full",
+                    colorMap[goal.color as keyof typeof colorMap]
+                  )}
+                  style={{ width: `${goal.percent}%` }}
+                />
+              </div>
+            )}
             <div className="mt-1.5 flex items-center justify-between text-xs text-muted-foreground">
               <span>{formatNumber(goal.current)}</span>
               {/* <span>Target: {goal.target}</span> */}

@@ -1,7 +1,9 @@
 export interface HrStatRow {
-  label: string;
-  value: string;
-  icon: string; // "Wallet" | "Euro" — heroIcons map 
+  employees: number;
+  hired: number;
+  fired: number; 
+  hired_month: number;
+  fired_month: number; 
 }
 
 export interface DistributionItem {
@@ -23,7 +25,7 @@ export interface HrStatCardData {
 }
 
 export interface HrSalaryOverviewResponse {
-  stats: HrStatRow[];
+  stats: HrStatRow;
   headcount: {
     total: number;
     totalLabel: string;

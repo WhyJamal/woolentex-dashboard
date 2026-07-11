@@ -13,6 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { formatNumber } from "@/utils/formatter-number";
 import { Cell, Pie, PieChart } from "recharts";
 
 interface DistributionItem {
@@ -89,8 +90,11 @@ export function WarehouseDistribution({
                 <span className="text-muted-foreground">{item.label}</span>
               </div>
               <span className="font-medium">
-                {Math.round((item.value / total) * 100)}%
+                {formatNumber(item.value)}
               </span>
+              {/* <span className="font-medium">
+                {Math.round((item.value / total) * 100)}%
+              </span> */}
             </div>
           ))}
         </div>

@@ -14,15 +14,24 @@ export default function AuthLayout({
     <main className="relative min-h-screen overflow-hidden bg-black">
       {/* Background */}
       <div className="absolute inset-0">
-        <img
-          src={
-            isMobile
-              ? "/images/WZ010-10-black-01.jpg"
-              : "/images/WZ10-10-scaled.png"
-          }
-          alt="Background"
-          className="h-full w-full object-cover"
-        />
+        {isMobile ? (
+          <img
+            src={'/images/WZ010-10-black-01.jpg'}
+            alt="Background"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source src="/videos/lv_0_20260709222922.webm" type="video/webm" />
+          </video>
+        )}
 
         <div className="absolute inset-0 bg-black/5" />
 

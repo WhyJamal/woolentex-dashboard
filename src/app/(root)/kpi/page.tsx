@@ -21,21 +21,21 @@ export default async function KpiPage() {
     return (
         <div className="space-y-6">
             <HeroStatCard
-                title="Производство"
-                subtitle="Обзор остатков по складу и производству"
+                title="Денежные средства"
+                subtitle="Остатки на счетах и в кассе"
                 groups={[
                     {
                         title: "Банк",
                         cards: [
                             {
                                 rows: [
-                                    { label: "Сум", value: formatNumber(bank.sum), icon: heroIcons.Wallet },
+                                    { label: "Сум", value: bank.sum || 0, icon: heroIcons.Wallet },
                                 ],
                             },
                             {
                                 rows: [
-                                    { label: "Евро", value: formatNumber(bank.euro), icon: heroIcons.Euro },
-                                    { label: "Доллар", value: formatNumber(bank.dollar), icon: heroIcons.DollarSign },
+                                    { label: "Евро", value: bank.euro || 0, icon: heroIcons.Euro },
+                                    { label: "Доллар", value: bank.dollar || 0, icon: heroIcons.DollarSign },
                                 ],
                             },
                         ],
@@ -45,13 +45,13 @@ export default async function KpiPage() {
                         cards: [
                             {
                                 rows: [
-                                    { label: "Сум", value: formatNumber(cash.sum), icon: heroIcons.Wallet },
+                                    { label: "Сум", value: cash.sum || 0, icon: heroIcons.Wallet },
                                 ],
                             },
                             {
                                 rows: [
-                                    { label: "Евро", value: formatNumber(cash.euro), icon: heroIcons.Euro },
-                                    { label: "Доллар", value: formatNumber(cash.dollar), icon: heroIcons.DollarSign },
+                                    { label: "Евро", value: cash.euro || 0, icon: heroIcons.Euro },
+                                    { label: "Доллар", value: cash.dollar || 0, icon: heroIcons.DollarSign },
                                 ],
                             },
                         ],
@@ -61,7 +61,7 @@ export default async function KpiPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
                 <StockChart data={stock} />
-                <RevenueGoals goals={revenueGoals} />
+                <RevenueGoals goals={revenueGoals} title="Выручка" showPercent />
             </div>
 
             <OutputVolumeChart

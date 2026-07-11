@@ -17,6 +17,7 @@ export async function getWarehouseOverview(): Promise<WarehouseActionResult> {
 
   try {
     const data = await api.get<WarehouseOverviewResponse>("/warehouse");
+    //console.log("Warehouse Overview data:", data);
     return { success: true, data };
   } catch (err) {
     console.error("Ошибка при получении обзора склада:", err);

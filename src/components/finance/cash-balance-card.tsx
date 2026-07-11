@@ -1,11 +1,12 @@
+import { formatNumber } from "@/utils/formatter-number";
 import { Wallet, Euro, DollarSign } from "lucide-react";
 
 const icons = { sum: Wallet, euro: Euro, dollar: DollarSign };
 
 interface CashBalanceCardProps {
-  sum: string;
-  euro: string;
-  dollar: string;
+  sum: number;
+  euro: number;
+  dollar: number;
 }
 
 export function CashBalanceCard({ sum, euro, dollar }: CashBalanceCardProps) {
@@ -29,7 +30,7 @@ export function CashBalanceCard({ sum, euro, dollar }: CashBalanceCardProps) {
                 <Icon className="size-3.5" />
                 {row.label}
               </span>
-              <span className="font-medium">{row.value}</span>
+              <span className="font-medium">{formatNumber(row.value || 0)}</span>
             </div>
           );
         })}
