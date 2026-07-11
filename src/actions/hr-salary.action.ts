@@ -17,7 +17,7 @@ export async function getHrSalaryOverview(): Promise<HrSalaryActionResult> {
 
   try {
     const data = await api.get<HrSalaryOverviewResponse>("/hr-salary");
-    console.log("HR/Salary Overview data:", data);
+    //console.log("HR/Salary Overview data:", data);
     return { success: true, data };
   } catch (err) {
     console.error("Ошибка получения HR/Salary обзора:", err);

@@ -11,22 +11,24 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CashBalanceCard } from "./cash-balance-card";
 import { getCashBalance } from "@/actions/finance.action";
 import type { BalancePeriod, CashBalanceResponse } from "@/types/finance.types";
+import { DatePicker } from "./data-picker";
 
 interface CashBalanceSectionProps {
   initialData: CashBalanceResponse;
 }
 
 export function CashBalanceSection({ initialData }: CashBalanceSectionProps) {
-  const [period, setPeriod] = useState<BalancePeriod>("day");
   const [data, setData] = useState<CashBalanceResponse>(initialData);
   const [isPending, startTransition] = useTransition();
 
-  const handlePeriodChange = (value: string) => {
-    const newPeriod = value as BalancePeriod;
-    setPeriod(newPeriod);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date);
 
     startTransition(async () => {
-      const result = await getCashBalance(newPeriod);
+      const result = await getCashBalance(date);
+
       if (result.success) {
         setData(result.data);
       }
@@ -37,15 +39,22 @@ export function CashBalanceSection({ initialData }: CashBalanceSectionProps) {
     <Card>
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle className="text-base">Денежные средства</CardTitle>
-        <Tabs value={period} onValueChange={handlePeriodChange}>
+        {/* <Tabs value={period} onValueChange={handlePeriodChange}>
           <TabsList>
             <TabsTrigger value="day">День</TabsTrigger>
             <TabsTrigger value="week">Неделя</TabsTrigger>
             <TabsTrigger value="month">Месяц</TabsTrigger>
           </TabsList>
-        </Tabs>
+        </Tabs> */}
+
+        <div className="flex items-center mt-3">
+          <DatePicker
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
+        </div>
       </CardHeader>
-      <CardContent className={`space-y-4 transition-opacity ${isPending ? "opacity-50" : ""}`}>
+      <CardContent className={`space-y-3 transition-opacity ${isPending ? "opacity-50" : ""}`}>
         <p className="mb-2 text-md font-medium tracking-wide uppercase text-center border-b border-neutral-800 pb-3">
           Банк
         </p>

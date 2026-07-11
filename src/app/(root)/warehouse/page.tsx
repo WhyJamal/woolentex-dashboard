@@ -30,6 +30,7 @@ export default async function WarehousePage() {
         groups={[
           {
             title: "Склад",
+            columbs: 3,
             cards: stats.map((row) => ({ rows: withIcon([row]) })),
           },
         ]}

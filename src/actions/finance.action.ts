@@ -17,7 +17,7 @@ export async function getFinanceOverview(): Promise<FinanceActionResult> {
 
   try {
     const data = await api.get<FinanceOverviewResponse>("/finance");
-    console.log("Finance Overview data:", data.cashFlows[0].data);
+    //console.log("Finance Overview data:", data.cashFlows[0].data);
     return { success: true, data };
   } catch (err) {
     console.error("Ошибка при получении обзора финансов:", err);
@@ -30,7 +30,7 @@ type CashBalanceActionResult =
   | { success: false; error: string };
 
 export async function getCashBalance(
-  period: BalancePeriod
+  date: Date
 ): Promise<CashBalanceActionResult> {
   const session = await getSession();
 
@@ -40,7 +40,7 @@ export async function getCashBalance(
 
   try {
     const data = await api.get<CashBalanceResponse>("/finance/balance", {
-      params: { period },
+      params: { date: date.toISOString().slice(0, 19) },
     });
     return { success: true, data };
   } catch (err) {

@@ -51,7 +51,7 @@ export function CashFlowChart({ title, period, data, currency }: CashFlowChartPr
             tickLine={false}
             tick={{ fill: "#737373", fontSize: 10 }}
             tickFormatter={formatCompact}
-            width={40}
+            width={50}
           />
           <ChartTooltip
             content={<ChartTooltipContent className="text-xs" />}

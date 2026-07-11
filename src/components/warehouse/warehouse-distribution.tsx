@@ -71,7 +71,7 @@ export function WarehouseDistribution({
             </PieChart>
           </ChartContainer>
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-            <p className="text-xl font-semibold">{centerValue}</p>
+            <p className="text-xl font-semibold">{formatNumber(parseFloat(centerValue))}</p>
             <p className="text-xs text-muted-foreground">{centerLabel}</p>
           </div>
         </div>

@@ -40,7 +40,12 @@ export function HeroStatCard({ title, subtitle, groups }: HeroStatCardProps) {
             <p className={`mb-3 text-xs font-medium tracking-wide text-white/60 uppercase ${group.titlePosition === "center" ? "text-center" : group.titlePosition === "right" ? "text-right" : "text-left"}`}>
               {group.title}
             </p>
-            <div className={`grid grid-cols-1 gap-3 sm:grid-cols-${group.columbs || 2}`}>
+            <div
+              className="grid gap-3"
+              style={{
+                gridTemplateColumns: `repeat(${group.columbs || 2}, minmax(0, 1fr))`,
+              }}
+            >
               {group.cards.map((card, i) => (
                 <div
                   key={i}
