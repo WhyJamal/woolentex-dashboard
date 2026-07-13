@@ -1,12 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { RevenueGoal } from "@/types/kpi.types";
+import { RevenueGoal, RevenueGoalItem } from "@/types/kpi.types";
 import { formatNumber } from "@/utils/formatter-number";
 
 interface RevenueGoalsProps {
-  goals: RevenueGoal[];
+  goals: RevenueGoalItem[];
   title?: string;
   showPercent?: boolean;
+  total?: number;
 }
 
 const colorMap = {
@@ -16,11 +17,17 @@ const colorMap = {
   blue: "bg-blue-500",
 };
 
-export function RevenueGoals({ goals, title, showPercent }: RevenueGoalsProps) {
+export function RevenueGoals({ goals, title, showPercent, total = 0 }: RevenueGoalsProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">{title}</CardTitle>
+        <CardTitle className="flex items-center justify-between text-base">
+          <span>{title}</span>
+
+          {total !== 0 && (
+            <span className="text-blue-600">{formatNumber(total)}</span>
+          )}
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-5">
         {goals.map((goal) => (

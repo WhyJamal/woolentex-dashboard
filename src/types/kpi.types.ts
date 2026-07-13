@@ -16,6 +16,11 @@ export interface StockPoint {
 }
 
 export interface RevenueGoal {
+  total: number;
+  data: RevenueGoalItem[];
+}
+
+export interface RevenueGoalItem {
   label: string;
   current: number;
   // target: string;
@@ -40,7 +45,7 @@ export interface KpiOverviewResponse {
     dollar: number;
   };
   stock: StockPoint[];
-  revenueGoals: RevenueGoal[];
+  revenueGoals: RevenueGoal;
   output: {
     data: OutputPoint[];
     total: number;

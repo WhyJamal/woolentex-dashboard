@@ -1,4 +1,4 @@
-import { RevenueGoal } from "./kpi.types";
+import { RevenueGoal, RevenueGoalItem } from "./kpi.types";
 
 export interface WarehouseStatRow {
   label: string;
@@ -26,5 +26,5 @@ export interface WarehouseOverviewResponse {
     centerLabel: string;
     centerValue: string;
   };
-  goals: RevenueGoal[];
+  goals: RevenueGoal;
 }
